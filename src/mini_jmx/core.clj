@@ -15,7 +15,8 @@
                  (assoc env JMXConnector/CREDENTIALS
                         (into-array String credential-seq))
                  env)
-           url (JMXServiceURL. "service:jmx:rmi://localhost:3000/jndi/rmi://localhost:3000/jmxrmi")
+           url (JMXServiceURL. (format "service:jmx:rmi://localhost:%s/jndi/rmi://localhost:%s/jmxrmi"
+                                       rmi-export-port rmi-registry-port))
            cs  (JMXConnectorServerFactory/newJMXConnectorServer url env mbs)]
        (.start cs)
        cs)))
